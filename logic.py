@@ -1,9 +1,12 @@
 import json
 import requests
-import translators as ts
+from googletrans import Translator
 import conf
 import time
 from datetime import datetime
+# import translators as ts
+
+translator = Translator()
 
 
 def read_file() -> dict:
@@ -311,7 +314,8 @@ def send_item(item, user_id, shop_id):
     # создаем список для картинок
     imgs = []
     try:
-        dis = ts.translate_text(item['dis'], to_language='ru')
+        dis = translator.translate(item['dis'], dest='ru').text
+        # dis = ts.translate_text(item['dis'], to_language='ru')
     except Exception as e:
         print(e)
         dis = item['dis']
